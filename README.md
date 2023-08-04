@@ -6,6 +6,9 @@ Not actually true, note even close- just the last CI image I'll ever need for th
 
 I got tired of Sh*tbucket's average CI image and old version of Docker Compose so here we are.
 
+Available on Docker Hub
+at [initialed85/the-last-ci-image-you-will-ever-need](https://hub.docker.com/r/initialed85/the-last-ci-image-you-will-ever-need).
+
 ## What's it got?
 
 - ca-certificates
