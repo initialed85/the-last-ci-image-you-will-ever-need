@@ -28,8 +28,8 @@ ENV PATH=${PATH}:/root/.cargo/bin/
 RUN rustup update
 
 # go
-RUN curl -LO https://dl.google.com/go/go1.20.7.linux-amd64.tar.gz && \
-    tar -C /usr/local -xzf go1.20.7.linux-amd64.tar.gz
+RUN curl -LO https://go.dev/dl/go1.21.3.linux-amd64.tar.gz && \
+    tar -C /usr/local -xzf go1.21.3.linux-amd64.tar.gz
 ENV PATH=${PATH}:/usr/local/go/bin
 
 # kubectl
@@ -81,8 +81,11 @@ RUN python3 -m pip install pytest
 RUN apt-get update && \
     apt-get install -y entr git jq tmux
 
+# postgresql client
+RUN apt-get install -y postgresql-client-14
+
 # cleanup
-RUN rm -frv go1.20.7.linux-amd64.tar.gz awscliv2.zip aws /tmp/*
+RUN rm -frv go1.21.3.linux-amd64.tar.gz awscliv2.zip aws /tmp/*
 
 WORKDIR /srv
 
