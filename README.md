@@ -4,38 +4,57 @@
 
 Not actually true, note even close- just the last CI image I'll ever need for the at least the next few weeks or so.
 
-I got tired of Sh*tbucket's average CI image and old version of Docker Compose so here we are.
+I got tired of Sh\*tbucket's average CI image and old version of Docker Compose so here we are.
 
-Available on Docker Hub
-at [initialed85/the-last-ci-image-you-will-ever-need](https://hub.docker.com/r/initialed85/the-last-ci-image-you-will-ever-need).
+Available on Docker Hub: [initialed85/the-last-ci-image-you-will-ever-need](https://hub.docker.com/r/initialed85/the-last-ci-image-you-will-ever-need).
+
+The following variants are available at different tags:
+
+-   `initialed85/the-last-ci-image-you-will-ever-need:latest` (has everything)
+-   `initialed85/the-last-ci-image-you-will-ever-need:docker` (has just enough to build and push Docker containers)
+-   `initialed85/the-last-ci-image-you-will-ever-need:kubernetes` (has just enough to do Kubernetes deployments)
 
 ## What's it got?
 
-- ca-certificates
-- curl
-- tcpdump
-- netcat
-- ping
-- docker
-- node
-- rust
-- go
-- kubectl
-- kustomize
-- atlas
-- python3
-- ripgrep
-- gojsonschema
-- prettier
-- black
-- EAS
-- ssh
-- AWSCLIv2
-- pytest
-- entr
-- git
-- jq
-- nmap
+-   `latest` tag
+    -   ca-certificates
+    -   curl
+    -   tcpdump
+    -   netcat
+    -   ping
+    -   docker
+    -   node
+    -   rust
+    -   go
+    -   kubectl
+    -   kustomize
+    -   atlas
+    -   python3
+    -   ripgrep
+    -   gojsonschema
+    -   prettier
+    -   black
+    -   EAS
+    -   ssh
+    -   AWSCLIv2
+    -   pytest
+    -   entr
+    -   git
+    -   jq
+    -   nmap
+-   `docker` tag
+    -   ca-certificates
+    -   curl
+    -   docker
+    -   git
+    -   AWSCLIv2
+-   `kubernetes` tag
+    -   ca-certificates
+    -   curl
+    -   kubectl
+    -   kustomize
+    -   prettier
+    -   AWSCLIv2
 
 ## Where should the code go?
 
