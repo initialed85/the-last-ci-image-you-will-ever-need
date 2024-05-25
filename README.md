@@ -1,5 +1,7 @@
 # the-last-ci-image-you-will-never-need
 
+# status: working and in production (as part of the Bitbucket CI/CD setup) at my day job
+
 3-odd GB of raw, unadulterated continuous integration goodness- the last CI image you'll ever have to touch.
 
 Not actually true, note even close- just the last CI image I'll ever need for the at least the next few weeks or so.
