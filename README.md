@@ -12,52 +12,53 @@ Available on Docker Hub: [initialed85/the-last-ci-image-you-will-ever-need](http
 
 The following variants are available at different tags:
 
--   `initialed85/the-last-ci-image-you-will-ever-need:latest` (has everything)
--   `initialed85/the-last-ci-image-you-will-ever-need:docker` (has just enough to build and push Docker containers)
--   `initialed85/the-last-ci-image-you-will-ever-need:kubernetes` (has just enough to do Kubernetes deployments)
--   `initialed85/the-last-ci-image-you-will-ever-need:postgres` (has just enough to do some barebones Postgres automation with psql and jq)
+- `initialed85/the-last-ci-image-you-will-ever-need:everything` (has everything)
+  - This is also the default at `initialed85/the-last-ci-image-you-will-ever-need:latest`
+- `initialed85/the-last-ci-image-you-will-ever-need:docker` (has just enough to build and push Docker containers)
+- `initialed85/the-last-ci-image-you-will-ever-need:kubernetes` (has just enough to do Kubernetes deployments)
+- `initialed85/the-last-ci-image-you-will-ever-need:postgres` (has just enough to do some barebones Postgres automation with psql and jq)
 
 ## What's it got?
 
--   `latest` tag / `everything` tag
-    -   ca-certificates
-    -   curl
-    -   tcpdump
-    -   netcat
-    -   ping
-    -   docker
-    -   node
-    -   rust
-    -   go
-    -   kubectl
-    -   kustomize
-    -   atlas
-    -   python3
-    -   ripgrep
-    -   gojsonschema
-    -   prettier
-    -   black
-    -   EAS
-    -   ssh
-    -   AWSCLIv2
-    -   pytest
-    -   entr
-    -   git
-    -   jq
-    -   nmap
--   `docker` tag
-    -   ca-certificates
-    -   curl
-    -   docker
-    -   git
-    -   AWSCLIv2
--   `kubernetes` tag
-    -   ca-certificates
-    -   curl
-    -   kubectl
-    -   kustomize
-    -   prettier
-    -   AWSCLIv2
+- `everything` / `latest` tags
+  - ca-certificates
+  - curl
+  - tcpdump
+  - netcat
+  - ping
+  - docker
+  - node
+  - rust
+  - go
+  - kubectl
+  - kustomize
+  - atlas
+  - python3
+  - ripgrep
+  - gojsonschema
+  - prettier
+  - black
+  - EAS
+  - ssh
+  - AWSCLIv2
+  - pytest
+  - entr
+  - git
+  - jq
+  - nmap
+- `docker` tag
+  - ca-certificates
+  - curl
+  - docker
+  - git
+  - AWSCLIv2
+- `kubernetes` tag
+  - ca-certificates
+  - curl
+  - kubectl
+  - kustomize
+  - prettier
+  - AWSCLIv2
 
 ## Where should the code go?
 
@@ -69,7 +70,7 @@ The working directory is `/srv`, so that's where you should mount / copy / whate
 docker run --rm -it --privileged \
   -v /var/run/docker.sock:/var/run/docker.sock \
   -v $(pwd):/srv \
-  initialed85/the-last-ci-image-you-will-ever-need:latest \
+  initialed85/the-last-ci-image-you-will-ever-need:everything \
   bash -c 'go build -o your-app ./cmd && docker compose up -d && go test -v ./... ; retval=${?} ; docker compose down --remove-orphans --volumes ; exit ${retval}'
 ```
 
