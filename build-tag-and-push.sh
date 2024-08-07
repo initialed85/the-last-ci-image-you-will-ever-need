@@ -8,7 +8,7 @@ set -e
 
 docker rmi initialed85/the-last-ci-image-you-will-ever-need:latest >/dev/null 2>&1 || true
 docker build --platform=linux/amd64 --progress=plain -t initialed85/the-last-ci-image-you-will-ever-need:latest -f Dockerfile ./
-docker iamge tag initialed85/the-last-ci-image-you-will-ever-need:latest initialed85/the-last-ci-image-you-will-ever-need:everything
+docker image tag initialed85/the-last-ci-image-you-will-ever-need:latest initialed85/the-last-ci-image-you-will-ever-need:everything
 echo ""
 
 docker rmi initialed85/the-last-ci-image-you-will-ever-need:kubernetes >/dev/null 2>&1 || true
