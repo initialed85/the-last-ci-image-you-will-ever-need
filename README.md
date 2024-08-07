@@ -15,10 +15,11 @@ The following variants are available at different tags:
 -   `initialed85/the-last-ci-image-you-will-ever-need:latest` (has everything)
 -   `initialed85/the-last-ci-image-you-will-ever-need:docker` (has just enough to build and push Docker containers)
 -   `initialed85/the-last-ci-image-you-will-ever-need:kubernetes` (has just enough to do Kubernetes deployments)
+-   `initialed85/the-last-ci-image-you-will-ever-need:postgres` (has just enough to do some barebones Postgres automation with psql and jq)
 
 ## What's it got?
 
--   `latest` tag
+-   `latest` tag / `everything` tag
     -   ca-certificates
     -   curl
     -   tcpdump
