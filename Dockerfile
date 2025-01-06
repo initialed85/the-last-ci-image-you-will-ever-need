@@ -31,10 +31,17 @@ ENV PATH=${PATH}:/root/.cargo/bin/
 RUN rustup update
 
 # go
-RUN curl -LO https://go.dev/dl/go1.21.3.linux-amd64.tar.gz && \
-    tar -C /usr/local -xzf go1.21.3.linux-amd64.tar.gz && \
-    rm -frv go1.21.3.linux-amd64.tar.gz
+RUN curl -LO https://go.dev/dl/go1.23.1.linux-amd64.tar.gz && \
+    tar -C /usr/local -xzf go1.23.1.linux-amd64.tar.gz && \
+    rm -frv go1.23.1.linux-amd64.tar.gz
 ENV PATH=${PATH}:/usr/local/go/bin
+ENV PATH=${PATH}:/root/go/bin
+
+# staticcheck
+RUN go install honnef.co/go/tools/cmd/staticcheck@latest
+
+# dotenv
+RUN cargo install dotenv
 
 # kubectl
 RUN curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" && \
@@ -70,10 +77,15 @@ RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2
 # pytest
 RUN python3 -m pip install pytest
 
+# goimports
+
+RUN go install golang.org/x/tools/cmd/goimports@latest
+
 FROM --platform=linux/amd64 scratch
 
 ENV PATH=${PATH}:/root/.cargo/bin/
 ENV PATH=${PATH}:/usr/local/go/bin
+ENV PATH=${PATH}:/root/go/bin
 
 COPY --link --from=builder / /
 

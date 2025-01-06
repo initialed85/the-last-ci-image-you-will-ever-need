@@ -23,6 +23,10 @@ docker rmi initialed85/the-last-ci-image-you-will-ever-need:postgres >/dev/null 
 docker build --platform=linux/amd64 --progress=plain -t initialed85/the-last-ci-image-you-will-ever-need:postgres -f Dockerfile.postgres ./
 echo ""
 
+docker rmi initialed85/the-last-ci-image-you-will-ever-need:postgres-and-kubernetes >/dev/null 2>&1 || true
+docker build --platform=linux/amd64 --progress=plain -t initialed85/the-last-ci-image-you-will-ever-need:postgres-and-kubernetes -f Dockerfile.postgres-and-kubernetes ./
+echo ""
+
 #
 # push
 #
@@ -41,5 +45,8 @@ if [[ "${SKIP_PUSH}" != "1" ]]; then
     echo ""
 
     docker image push initialed85/the-last-ci-image-you-will-ever-need:postgres
+    echo ""
+
+    docker image push initialed85/the-last-ci-image-you-will-ever-need:postgres-and-kubernetes
     echo ""
 fi
