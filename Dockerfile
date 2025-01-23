@@ -40,6 +40,9 @@ ENV PATH=${PATH}:/root/go/bin
 # staticcheck
 RUN go install honnef.co/go/tools/cmd/staticcheck@latest
 
+# go-junit-report
+RUN go install github.com/jstemmer/go-junit-report/v2@latest
+
 # dotenv
 RUN cargo install dotenv
 
