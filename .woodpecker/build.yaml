@@ -1,0 +1,43 @@
+# Build check for the CI images in this repo (woodpecker.dev.initialed85.cc).
+#
+# This repository is the source of `initialed85/the-last-ci-image-you-will-ever-need` and its four
+# variants, each a thick ubuntu base (apt installs, docker-ce repo, kubectl, postgres client) built for
+# linux/amd64. Nothing here is tested by a test suite: the artifact *is* the product, and the only real
+# failure mode is an image that no longer builds because a base layer or an apt package moved under it.
+# The repo has been quiet since 2025-01-23, which is exactly when that happens.
+#
+# CI therefore builds all five against a real daemon and stops there. Publishing stays with
+# ./build-tag-and-push.sh on purpose: these `:latest` tags are consumed by other projects' pipelines,
+# and a dormant repository should not be able to republish them from a CI run nobody was watching. If
+# you want CI to publish, that is one `docker push` line and a decision about who consumes `:latest`.
+#
+# The build runs on ocnus-ci-2's own dockerd over TCP (Service docker-ocnus-ci-2:2375 in the
+# woodpecker namespace): a step is a pod with no docker socket of its own, and that daemon's store is
+# the layer cache, so pinning one node is what keeps five ubuntu-based builds cheap. ocnus-ci-2 rather
+# than beefcake-ci-1 because twelve other workflows already live on beefcake-ci-1.
+#
+# `--pull` is deliberate. Skipping it makes a green run mean "this built against the layers this node
+# happened to keep", which is the exact lie this pipeline exists to catch.
+
+steps:
+  - name: build-images
+    image: docker.io/library/docker:cli
+    privileged: true
+    environment:
+      DOCKER_HOST: tcp://docker-ocnus-ci-2:2375
+      IMAGE: initialed85/the-last-ci-image-you-will-ever-need
+    commands:
+      - docker info --format 'daemon={{.Name}}'
+      - docker build --pull --platform=linux/amd64 -t "$IMAGE:ci-$CI_COMMIT_SHA" -f Dockerfile ./
+      - docker build --pull --platform=linux/amd64 -t "$IMAGE:docker-ci-$CI_COMMIT_SHA" -f Dockerfile.docker ./
+      - docker build --pull --platform=linux/amd64 -t "$IMAGE:kubernetes-ci-$CI_COMMIT_SHA" -f Dockerfile.kubernetes ./
+      - docker build --pull --platform=linux/amd64 -t "$IMAGE:postgres-ci-$CI_COMMIT_SHA" -f Dockerfile.postgres ./
+      - docker build --pull --platform=linux/amd64 -t "$IMAGE:postgres-and-kubernetes-ci-$CI_COMMIT_SHA" -f Dockerfile.postgres-and-kubernetes ./
+      # the point of the step: what was actually produced, with sizes, so a build that silently dropped
+      # a toolchain shows up as a suspiciously small image
+      - docker images --format '{{.Repository}}:{{.Tag}}  {{.Size}}' | grep "$IMAGE"
+
+when:
+  - event:
+      - push
+      - pull_request
